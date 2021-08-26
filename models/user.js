@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const userSchema = new mongoose.Schema(
   {
     // slug: { type: String, default: () => nanoid() },
@@ -32,9 +31,8 @@ const userSchema = new mongoose.Schema(
     day: String,
 
     month: String,
-      
-   year: String,
-    
+
+    year: String,
 
     events: [{ type: mongoose.Schema.Types.ObjectId, ref: "event" }]
   },

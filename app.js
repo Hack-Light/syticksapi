@@ -11,13 +11,14 @@ const createError = require("http-errors"),
   app = express(),
   mongoose = require("mongoose"),
   port = process.env.PORT || 3000;
-  // socket = require("socket.io");
+// socket = require("socket.io");
 
-  // import routes
-  let registerRoute = require("./routes/register")
-  let loginRoute = require("./routes/login");
-  let indexRoute = require("./routes/index");
-  /* otpRoute = require("./routes/otp"),
+// import routes
+let registerRoute = require("./routes/register");
+let loginRoute = require("./routes/login");
+let indexRoute = require("./routes/index");
+let eventRoute = require("./routes/events");
+/* otpRoute = require("./routes/otp"),
   postsRoute = require("./routes/post"),
   crimeRoute = require("./routes/crime"),
   userRoute = require("./routes/users"),
@@ -48,7 +49,8 @@ app.use(expressip().getIpInfoMiddleware);
 // register routes
 app.use(registerRoute);
 app.use(loginRoute);
-app.use(indexRoute)
+app.use(indexRoute);
+app.use(eventRoute);
 // app.use(otpRoute);
 // app.use(postsRoute);
 // app.use(crimeRoute);
