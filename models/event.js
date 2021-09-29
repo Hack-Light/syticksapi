@@ -36,6 +36,7 @@ const eventSchema = new mongoose.Schema(
       }
     ],
     done: { type: Boolean, default: false },
+    advert: { type: Boolean, default: false },
     is_deleted: { type: Boolean, default: false },
     images: [
       {
