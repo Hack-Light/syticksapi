@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken"),
 exports.loginUser = async (req, res, next) => {
   const { password, email } = req.body;
   try {
-    let user = await userModel.findOne({ email });
+    let user = await userModel.findOne({ email: email });
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -37,20 +37,18 @@ exports.loginUser = async (req, res, next) => {
       user.api_token = api_token;
 
       user = await user.save();
-     
-      
 
       return res.status(200).json({
         success: true,
         message: "You're logged in successfully.",
         id: user._id,
         phone: user.phone,
-      email: user.email,
-      username: user.username,
-    name: user.name,
-      day: user.day,
-      month: user.month,
-    year: user.year
+        email: user.email,
+        username: user.username,
+        name: user.name,
+        day: user.day,
+        month: user.month,
+        year: user.year
       });
     }
   } catch (err) {

@@ -4,7 +4,10 @@ const jwt = require("jsonwebtoken"),
   { signToken } = require("../auth/auth");
 
 exports.registerUser = async (req, res, next) => {
-  let { phone, password, role, username, name, email,day , month, year } = req.body;
+  let { phone, password, role, username, name, email, day, month, year } =
+    req.body;
+  console.log(req.body);
+
   try {
     let user = await User.findOne({ email: email });
     if (user) {
@@ -44,10 +47,8 @@ exports.registerUser = async (req, res, next) => {
       day,
       month,
       year
-      
     });
     user = await user.save();
-    
 
     return res.status(201).json({
       success: true,
@@ -56,10 +57,10 @@ exports.registerUser = async (req, res, next) => {
       phone: user.phone,
       email: user.email,
       username: user.username,
-    name: user.name,
+      name: user.name,
       day: user.day,
       month: user.month,
-    year: user.year
+      year: user.year
     });
   } catch (err) {
     return res.status(500).json({

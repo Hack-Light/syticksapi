@@ -58,6 +58,14 @@ const eventSchema = new mongoose.Schema(
 
     date: Date,
 
+    street: String,
+
+    city: String,
+
+    town: String,
+
+    country: String,
+
     tickets: [{ type: mongoose.Schema.Types.ObjectId, ref: "tickets" }]
   },
   { timestamps: true }
