@@ -1,3 +1,4 @@
+const { Date } = require("mongoose");
 const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema(
@@ -16,7 +17,8 @@ const commentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       required: true
-    }
+    },
+    date: Date
   },
   { timestamps: true }
 );

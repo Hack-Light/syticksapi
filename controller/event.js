@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken"),
   bCrypt = require("bcrypt"),
   eventModel = require("../models/event"),
-  Organiser = require("../models/organisers");
+  Organiser = require("../models/organisers"),
+  Comment = require("../models/comment");
 
 exports.getAllEvent = async (req, res, next) => {
   try {
@@ -15,6 +16,48 @@ exports.getAllEvent = async (req, res, next) => {
     res.status(200).json({
       success: true,
       events
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+      error: {
+        statusCode: 500,
+        description: err.message
+      }
+    });
+  }
+};
+
+exports.createComments = async (req, res, next) => {
+  let { user_id, event_id, comment, date } = req.body;
+  console.log(req.body);
+
+  try {
+    let event = await eventModel.findOne({ _id: user_id, is_deleted: false });
+    if (!event) {
+      return res.status(409).json({
+        success: false,
+        message: "Event does not exist",
+        error: {
+          statusCode: 409,
+          description: "Event requested can not be reached at the moment"
+        }
+      });
+    }
+
+    let comments = new Comment({
+      user_id,
+      event_id,
+      comment,
+      date
+    });
+    await comments.save();
+
+    return res.status(201).json({
+      success: true,
+      message: "User registration successfull",
+      comment: user.comment
     });
   } catch (err) {
     return res.status(500).json({

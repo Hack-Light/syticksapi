@@ -18,12 +18,6 @@ let registerRoute = require("./routes/register");
 let loginRoute = require("./routes/login");
 let indexRoute = require("./routes/index");
 let eventRoute = require("./routes/events");
-/* otpRoute = require("./routes/otp"),
-  postsRoute = require("./routes/post"),
-  crimeRoute = require("./routes/crime"),
-  userRoute = require("./routes/users"),
-  dashboardRoute = require("./routes/dashboard"),
-  emergencyRoute = require("./routes/emergency"); */
 
 // connect to database
 mongoose
