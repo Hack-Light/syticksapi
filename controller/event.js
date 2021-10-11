@@ -83,7 +83,7 @@ exports.createComments = async (req, res, next) => {
     event.comments.push(comments._id);
     await event.save();
 
-    let events = await Comment.find({ event: event_id })
+    let events = await Comment.find({ event: event._id })
       .select("-event")
 
       .populate("user", "username", User);
