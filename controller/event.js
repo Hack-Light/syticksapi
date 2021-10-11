@@ -60,7 +60,7 @@ exports.createComments = async (req, res, next) => {
   console.log(req.body);
 
   try {
-    let event = await eventModel.findOne({ _id: user_id, is_deleted: false });
+    let event = await eventModel.findOne({ _id: event_id, is_deleted: false });
     if (!event) {
       return res.status(409).json({
         success: false,
