@@ -1,5 +1,18 @@
-const { Date } = require("mongoose");
 const mongoose = require("mongoose");
+
+const repliesSchema = new mongoose.Schema({
+  comment: {
+    type: String,
+    required: true
+  },
+
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: true
+  },
+  date: String
+});
 
 const commentSchema = new mongoose.Schema(
   {
@@ -19,7 +32,7 @@ const commentSchema = new mongoose.Schema(
       required: true
     },
     date: String,
-    replies: [{}]
+    replies: [repliesSchema]
   },
   { timestamps: true }
 );
