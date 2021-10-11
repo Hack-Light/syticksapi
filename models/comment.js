@@ -26,7 +26,7 @@ const commentSchema = new mongoose.Schema(
       required: true
     },
 
-    user: {
+    user_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       required: true

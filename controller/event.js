@@ -85,6 +85,15 @@ exports.createComments = async (req, res, next) => {
 
     event = await eventModel
       .findOne({ _id: event._id })
+      .populate({
+        path: "comments",
+        model: Comment,
+        populate: {
+          path: "user_id",
+          model: User,
+          select: "username"
+        }
+      })
       .populate("organiser", "name", Organiser)
       .populate("comments", "name comment user date", Comment);
 
