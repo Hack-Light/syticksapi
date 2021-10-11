@@ -91,7 +91,7 @@ exports.createComments = async (req, res, next) => {
     return res.status(201).json({
       success: true,
       message: "User registration successfull",
-      event: event
+      event: event.comments
     });
   } catch (err) {
     return res.status(500).json({
