@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken"),
   eventModel = require("../models/event"),
   Organiser = require("../models/organisers"),
   Comment = require("../models/comment");
+const User = require("../models/user");
 
 exports.getAllEvent = async (req, res, next) => {
   try {
@@ -54,10 +55,16 @@ exports.createComments = async (req, res, next) => {
     });
     await comments.save();
 
+    let events = Comment.find({ event: event_id }).populate(
+      "user",
+      "username",
+      User
+    );
+
     return res.status(201).json({
       success: true,
       message: "User registration successfull",
-      comment: comments.comment
+      comments: events
     });
   } catch (err) {
     return res.status(500).json({
