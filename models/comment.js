@@ -3,22 +3,22 @@ const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema(
   {
-    post: {
+    event: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "posts"
     },
 
-    text: {
+    comments: {
       type: String,
       required: true
     },
 
-    author: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       required: true
     },
-    date: Date
+    date: String
   },
   { timestamps: true }
 );
