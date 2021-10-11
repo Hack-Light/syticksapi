@@ -83,7 +83,7 @@ exports.createComments = async (req, res, next) => {
     event.comments.push(comments._id);
     await event.save();
 
-    let event = await eventModel
+    event = await eventModel
       .findOne({ _id: event._id })
       .populate("organiser", "name", Organiser)
       .populate("comments", Comment);
@@ -91,7 +91,7 @@ exports.createComments = async (req, res, next) => {
     return res.status(201).json({
       success: true,
       message: "User registration successfull",
-      comments: events
+      event: event
     });
   } catch (err) {
     return res.status(500).json({
