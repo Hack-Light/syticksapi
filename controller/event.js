@@ -12,6 +12,31 @@ exports.getAllEvent = async (req, res, next) => {
       .select(
         "-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id"
       )
+      .populate("organiser", "name", Organiser)
+      .populate("comments", Comment);
+
+    res.status(200).json({
+      success: true,
+      events
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+      error: {
+        statusCode: 500,
+        description: err.message
+      }
+    });
+  }
+};
+exports.getOneEvent = async (req, res, next) => {
+  try {
+    let events = await eventModel
+      .findOne({ is_deleted: false })
+      .select(
+        "-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id"
+      )
       .populate("organiser", "name", Organiser);
 
     res.status(200).json({
@@ -54,6 +79,9 @@ exports.createComments = async (req, res, next) => {
       date
     });
     await comments.save();
+
+    event.comments.push(comments._id);
+    await event.save();
 
     let events = await Comment.find({ event: event_id }).populate(
       "user",

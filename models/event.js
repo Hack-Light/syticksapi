@@ -66,7 +66,8 @@ const eventSchema = new mongoose.Schema(
 
     country: String,
 
-    tickets: [{ type: mongoose.Schema.Types.ObjectId, ref: "tickets" }]
+    tickets: [{ type: mongoose.Schema.Types.ObjectId, ref: "tickets" }],
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comment" }]
   },
   { timestamps: true }
 );

@@ -5,7 +5,7 @@ const commentSchema = new mongoose.Schema(
   {
     event: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "posts"
+      ref: "events"
     },
 
     comment: {
