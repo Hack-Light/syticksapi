@@ -18,7 +18,7 @@ const commentSchema = new mongoose.Schema(
   {
     event: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "events"
+      ref: "event"
     },
 
     comment: {
@@ -28,7 +28,7 @@ const commentSchema = new mongoose.Schema(
 
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
+      ref: "user",
       required: true
     },
     date: String,

@@ -13,7 +13,7 @@ exports.getAllEvent = async (req, res, next) => {
         "-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id"
       )
       .populate("organiser", "name", Organiser)
-      .populate("comments", Comment);
+      .populate("comments", "name comment user date", Comment);
 
     res.status(200).json({
       success: true,
@@ -86,7 +86,7 @@ exports.createComments = async (req, res, next) => {
     event = await eventModel
       .findOne({ _id: event._id })
       .populate("organiser", "name", Organiser)
-      .populate("comments", Comment);
+      .populate("comments", "name comment user date", Comment);
 
     return res.status(201).json({
       success: true,
