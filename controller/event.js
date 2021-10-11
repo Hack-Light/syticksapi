@@ -74,7 +74,7 @@ exports.createComments = async (req, res, next) => {
 
     let comments = new Comment({
       user: user_id,
-      event: event_id,
+      event_id,
       comment,
       date
     });
@@ -83,19 +83,15 @@ exports.createComments = async (req, res, next) => {
     event.comments.push(comments._id);
     await event.save();
 
-    event = await eventModel
-      .findOne({ _id: event._id })
-      .populate({
-        path: "comments",
-        model: Comment,
-        populate: {
-          path: "user_id",
-          model: User,
-          select: "username"
-        }
-      })
-      .populate("organiser", "name", Organiser)
-      .populate("comments", "name comment user date", Comment);
+    event = await eventModel.findOne({ _id: event._id }).populate({
+      path: "comments",
+      model: Comment,
+      populate: {
+        path: "user",
+        model: User,
+        select: "username"
+      }
+    });
 
     return res.status(201).json({
       success: true,
