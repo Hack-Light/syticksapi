@@ -8,7 +8,7 @@ const commentSchema = new mongoose.Schema(
       ref: "posts"
     },
 
-    comments: {
+    comment: {
       type: String,
       required: true
     },
@@ -18,7 +18,8 @@ const commentSchema = new mongoose.Schema(
       ref: "user",
       required: true
     },
-    date: String
+    date: String,
+    replies: [{}]
   },
   { timestamps: true }
 );

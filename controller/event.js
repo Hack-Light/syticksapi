@@ -47,8 +47,8 @@ exports.createComments = async (req, res, next) => {
     }
 
     let comments = new Comment({
-      user_id,
-      event_id,
+      user: user_id,
+      event: event_id,
       comment,
       date
     });
