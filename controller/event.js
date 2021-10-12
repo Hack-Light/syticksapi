@@ -38,18 +38,35 @@ exports.getAllEvent = async (req, res, next) => {
     });
   }
 };
-exports.getOneEvent = async (req, res, next) => {
+exports.getEventComment = async (req, res, next) => {
+  let { event_id } = req.body;
   try {
-    let events = await eventModel
-      .findOne({ is_deleted: false })
-      .select(
-        "-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id"
-      )
-      .populate("organiser", "name", Organiser);
+    let event = await eventModel
+      .findOne({ _id: event_id, is_deleted: false })
+      .populate({
+        path: "comments",
+        model: Comment,
+        populate: {
+          path: "user",
+          model: User,
+          select: "username"
+        }
+      });
+
+    if (!event) {
+      return res.status(409).json({
+        success: false,
+        message: "Event does not exist",
+        error: {
+          statusCode: 409,
+          description: "Event requested can not be reached at the moment"
+        }
+      });
+    }
 
     res.status(200).json({
       success: true,
-      events
+      event: event.comments
     });
   } catch (err) {
     return res.status(500).json({
