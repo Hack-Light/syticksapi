@@ -42,7 +42,11 @@ exports.getEventComment = async (req, res, next) => {
   let { event_id } = req.body;
   try {
     let event = await eventModel
-      .findOne({ _id: event_id, is_deleted: false })
+      .find({ is_deleted: false, _id: event_id })
+      .select(
+        "-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id"
+      )
+      .populate("organiser", "name", Organiser)
       .populate({
         path: "comments",
         model: Comment,
