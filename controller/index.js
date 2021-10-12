@@ -1,6 +1,7 @@
 const eventModel = require("../models/event");
 const Organiser = require("../models/organisers");
 const Comment = require("../models/comment");
+const User = require("../models/user");
 
 exports.getAdvert = async (req, res, next) => {
   try {
