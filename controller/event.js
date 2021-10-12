@@ -13,7 +13,15 @@ exports.getAllEvent = async (req, res, next) => {
         "-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id"
       )
       .populate("organiser", "name", Organiser)
-      .populate("comments", "name comment user date", Comment);
+      .populate({
+        path: "comments",
+        model: Comment,
+        populate: {
+          path: "user",
+          model: User,
+          select: "username"
+        }
+      });
 
     res.status(200).json({
       success: true,
