@@ -41,17 +41,7 @@ exports.getAllEvent = async (req, res, next) => {
 exports.getEventComment = async (req, res, next) => {
   let { event_id } = req.body;
   try {
-    let event = await eventModel
-      .find({ is_deleted: false, _id: event_id })
-      .populate({
-        path: "comments",
-        model: Comment,
-        populate: {
-          path: "user",
-          model: User,
-          select: "username"
-        }
-      });
+    let event = await eventModel.findOne({ is_deleted: false, _id: event_id });
 
     if (!event) {
       return res.status(409).json({
@@ -63,6 +53,19 @@ exports.getEventComment = async (req, res, next) => {
         }
       });
     }
+
+    event = await eventModel
+      .findOne({ is_deleted: false, _id: event_id })
+      .populate("organiser", "name", Organiser)
+      .populate({
+        path: "comments",
+        model: Comment,
+        populate: {
+          path: "user",
+          model: User,
+          select: "username"
+        }
+      });
 
     res.status(200).json({
       success: true,
