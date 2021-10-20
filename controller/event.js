@@ -102,6 +102,35 @@ exports.getEventComment = async (req, res, next) => {
   }
 };
 
+exports.getReplyComment = async (req, res, next) => {
+  let { comment_id } = req.body;
+  try {
+    let comment = await Comment.findOne({ _id: comment_id }).populate({
+      path: "replies",
+      model: Reply,
+      populate: {
+        path: "user",
+        model: User,
+        select: "username"
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      event: comment.replies
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+      error: {
+        statusCode: 500,
+        description: err.message
+      }
+    });
+  }
+};
+
 exports.createComments = async (req, res, next) => {
   let { user_id, event_id, comment, date } = req.body;
   console.log(req.body);
