@@ -212,7 +212,7 @@ exports.createReply = async (req, res, next) => {
     return res.status(201).json({
       success: true,
       message: "User registration successfull",
-      event: data.replies
+      event: data[0].replies
     });
   } catch (err) {
     return res.status(500).json({
