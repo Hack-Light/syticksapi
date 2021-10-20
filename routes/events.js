@@ -13,4 +13,6 @@ router.post("/event/comment", getEventComment);
 
 router.post("/event/comment/create", createComments);
 
+router.post("/event/reply/create", createReply);
+
 module.exports = router;
