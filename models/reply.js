@@ -1,14 +1,20 @@
 const mongoose = require("mongoose");
 
-const commentSchema = new mongoose.Schema(
+const replySchema = new mongoose.Schema(
   {
     event: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "event"
     },
 
-    comment: {
+    reply: {
       type: String,
+      required: true
+    },
+
+    comment_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "comment",
       required: true
     },
 
@@ -17,16 +23,9 @@ const commentSchema = new mongoose.Schema(
       ref: "user",
       required: true
     },
-    date: String,
-    replies: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "reply",
-        required: true
-      }
-    ]
+    date: String
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("comments", commentSchema);
+module.exports = mongoose.model("reply", replySchema);
