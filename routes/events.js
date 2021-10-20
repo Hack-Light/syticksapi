@@ -2,7 +2,8 @@ const express = require("express"),
   {
     getAllEvent,
     createComments,
-    getEventComment
+    getEventComment,
+    createReply
   } = require("../controller/event");
 
 let router = express.Router();
