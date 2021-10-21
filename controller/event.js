@@ -213,12 +213,10 @@ exports.createReply = async (req, res, next) => {
       date,
       comment_id
     });
-    await newreply.save();
-
-    let resReply = await event.save();
+    newreply = await newreply.save();
 
     let comment1 = await Comment.findOne({ _id: comment_id });
-    comment1.replies.push(resReply._id);
+    comment1.replies.push(newreply._id);
     await comment1.save();
 
     let comment2 = await Comment.findOne({ _id: comment_id }).populate({
