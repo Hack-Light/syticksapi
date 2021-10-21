@@ -247,3 +247,28 @@ exports.createReply = async (req, res, next) => {
     });
   }
 };
+
+exports.deleteComments = async (req, res, next) => {
+  let { _id } = req.body;
+  try {
+    await Comment.findOneAndRemove({ _id });
+
+    await Reply.deleteMany({
+      comment_id: _id
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Comment successfully deleted"
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+      error: {
+        statusCode: 500,
+        description: err.message
+      }
+    });
+  }
+};
