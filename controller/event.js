@@ -217,7 +217,7 @@ exports.createReply = async (req, res, next) => {
 
     let resReply = await event.save();
 
-    let comment1 = await Comment.findOne({ _id: id });
+    let comment1 = await Comment.findOne({ _id: comment_id });
     comment1.reply.push(resReply._id);
     await comment1.save();
 
