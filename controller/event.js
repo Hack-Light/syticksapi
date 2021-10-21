@@ -72,20 +72,22 @@ exports.getEventComment = async (req, res, next) => {
       .populate({
         path: "comments",
         model: Comment,
-        populate: {
-          path: "user",
-          model: User,
-          select: "username"
-        },
-        populate: {
-          path: "replies",
-          model: Reply,
-          populate: {
+        populate: [
+          {
             path: "user",
             model: User,
             select: "username"
+          },
+          {
+            path: "replies",
+            model: Reply,
+            populate: {
+              path: "user",
+              model: User,
+              select: "username"
+            }
           }
-        }
+        ]
       });
 
     res.status(200).json({
@@ -119,7 +121,7 @@ exports.getReplyComment = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      event: comments
+      event: comment
     });
   } catch (err) {
     return res.status(500).json({
@@ -219,31 +221,22 @@ exports.createReply = async (req, res, next) => {
     comment.reply.push(resReply._id);
     await comment.save();
 
-    event = await eventModel.findOne({ _id: event._id }).populate({
-      path: "comments",
-      model: Comment,
+    comment = await Comment.findOne({ _id: comment_id }).populate({
+      path: "replies",
+      model: Reply,
       populate: {
         path: "user",
         model: User,
         select: "username"
-      },
-      populate: {
-        path: "replies",
-        model: Reply,
-        populate: {
-          path: "user",
-          model: User,
-          select: "username"
-        }
       }
     });
 
-    let data = event.comments.filter(item => item._id == comment_id);
+    /*   let data = event.comments.filter(item => item._id == comment_id); */
 
     return res.status(201).json({
       success: true,
       message: "User registration successfull",
-      event: data[0].replies
+      event: comment.replies
     });
   } catch (err) {
     return res.status(500).json({
