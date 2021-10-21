@@ -107,9 +107,9 @@ exports.getEventComment = async (req, res, next) => {
 };
 
 exports.getReplyComment = async (req, res, next) => {
-  let { comment_id } = req.body;
+  let { _id } = req.body;
   try {
-    let comment = await Comment.findOne({ _id: comment_id }).populate({
+    let comment = await Comment.findOne({ _id: _id }).populate({
       path: "replies",
       model: Reply,
       populate: {
@@ -233,7 +233,7 @@ exports.createReply = async (req, res, next) => {
 
     return res.status(201).json({
       success: true,
-      message: "User registration successfull",
+      message: " reply successfully created",
       comments: comment2.replies
     });
   } catch (err) {
