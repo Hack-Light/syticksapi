@@ -2,6 +2,7 @@ const eventModel = require("../models/event");
 const Organiser = require("../models/organisers");
 const Comment = require("../models/comment");
 const User = require("../models/user");
+const Reply = require("../models/reply");
 
 exports.getAdvert = async (req, res, next) => {
   try {
@@ -27,7 +28,7 @@ exports.getAdvert = async (req, res, next) => {
             }
           }
         ]
-      })
+      });
 
     res.status(200).json({
       success: true,
