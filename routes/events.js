@@ -3,7 +3,8 @@ const express = require("express"),
     getAllEvent,
     createComments,
     getEventComment,
-    createReply
+    createReply,
+    getReplyComment
   } = require("../controller/event");
 
 let router = express.Router();
@@ -16,6 +17,6 @@ router.post("/event/comment/create", createComments);
 
 router.post("/event/reply/create", createReply);
 
-router.post("/event/reply", getReply);
+router.post("/event/reply", getReplyComment);
 
 module.exports = router;

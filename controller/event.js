@@ -17,20 +17,22 @@ exports.getAllEvent = async (req, res, next) => {
       .populate({
         path: "comments",
         model: Comment,
-        populate: {
-          path: "user",
-          model: User,
-          select: "username"
-        },
-        populate: {
-          path: "replies",
-          model: Reply,
-          populate: {
+        populate: [
+          {
             path: "user",
             model: User,
             select: "username"
+          },
+          {
+            path: "replies",
+            model: Reply,
+            populate: {
+              path: "user",
+              model: User,
+              select: "username"
+            }
           }
-        }
+        ]
       });
 
     res.status(200).json({
@@ -117,7 +119,7 @@ exports.getReplyComment = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      event: comment.replies
+      event: comments
     });
   } catch (err) {
     return res.status(500).json({
