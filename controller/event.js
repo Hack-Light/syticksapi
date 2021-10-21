@@ -92,7 +92,7 @@ exports.getEventComment = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      event: event.comments
+      comments: event.comments
     });
   } catch (err) {
     return res.status(500).json({
@@ -176,7 +176,7 @@ exports.createComments = async (req, res, next) => {
     return res.status(201).json({
       success: true,
       message: "User registration successfull",
-      event: event.comments
+      comments: event.comments
     });
   } catch (err) {
     return res.status(500).json({
@@ -209,7 +209,7 @@ exports.createReply = async (req, res, next) => {
     let newreply = new Reply({
       user: user_id,
       event_id,
-      reply,
+      comment,
       date,
       comment_id
     });

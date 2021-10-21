@@ -7,7 +7,7 @@ const replySchema = new mongoose.Schema(
       ref: "event"
     },
 
-    reply: {
+    comment: {
       type: String,
       required: true
     },
