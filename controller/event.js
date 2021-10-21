@@ -191,7 +191,7 @@ exports.createComments = async (req, res, next) => {
 };
 
 exports.createReply = async (req, res, next) => {
-  let { user_id, event_id, comment_id, reply, date } = req.body;
+  let { user_id, event_id, comment_id, comment, date } = req.body;
 
   try {
     let event = await eventModel.findOne({ _id: event_id, is_deleted: false });
@@ -217,11 +217,11 @@ exports.createReply = async (req, res, next) => {
 
     let resReply = await event.save();
 
-    let comment = await Comment.findOne({ _id: id });
-    comment.reply.push(resReply._id);
-    await comment.save();
+    let comment1 = await Comment.findOne({ _id: id });
+    comment1.reply.push(resReply._id);
+    await comment1.save();
 
-    comment = await Comment.findOne({ _id: comment_id }).populate({
+    let comment2 = await Comment.findOne({ _id: comment_id }).populate({
       path: "replies",
       model: Reply,
       populate: {
@@ -236,7 +236,7 @@ exports.createReply = async (req, res, next) => {
     return res.status(201).json({
       success: true,
       message: "User registration successfull",
-      event: comment.replies
+      comments: comment2.replies
     });
   } catch (err) {
     return res.status(500).json({
