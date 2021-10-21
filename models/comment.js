@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema(
   {
-    event: {
+    event_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "event"
     },
