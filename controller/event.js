@@ -109,7 +109,7 @@ exports.getEventComment = async (req, res, next) => {
 exports.getReplyComment = async (req, res, next) => {
   let { _id } = req.body;
   try {
-    let comment = await Comment.findOne({ _id: _id }).populate({
+    let comment = await Comment.findOne({ _id }).populate({
       path: "replies",
       model: Reply,
       populate: {
@@ -121,7 +121,7 @@ exports.getReplyComment = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      event: comment
+      comments: comment.replies
     });
   } catch (err) {
     return res.status(500).json({
