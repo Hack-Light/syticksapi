@@ -163,26 +163,33 @@ exports.createComments = async (req, res, next) => {
     event.comments.push(comments._id);
     await event.save();
 
-    event = await eventModel.findOne({ _id: event._id }).populate({
-      path: "comments",
-      model: Comment,
-      populate: [
-        {
-          path: "user",
-          model: User,
-          select: "username"
-        },
-        {
-          path: "replies",
-          model: Reply,
-          populate: {
+    event = await eventModel
+      .findOne({ _id: event._id })
+      .find({ is_deleted: false })
+      .select(
+        "-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id"
+      )
+      .populate("organiser", "name", Organiser)
+      .populate({
+        path: "comments",
+        model: Comment,
+        populate: [
+          {
             path: "user",
             model: User,
             select: "username"
+          },
+          {
+            path: "replies",
+            model: Reply,
+            populate: {
+              path: "user",
+              model: User,
+              select: "username"
+            }
           }
-        }
-      ]
-    });
+        ]
+      });
 
     return res.status(201).json({
       success: true,
