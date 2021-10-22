@@ -28,13 +28,12 @@ export const buyTicket = async (req, res) => {
   if (!ticket) {
     return res.status(500).json({
       success: true,
-      message: err.message,
       data: {
-        maxCount,
-        dummyCount,
+        maxCount: 0,
+        dummyCount: 0,
         user_id,
-        even8nmt_id,
-        ticks: data
+        event_id,
+        tickets: data
       }
     });
   }
