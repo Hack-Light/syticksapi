@@ -1,16 +1,17 @@
 const express = require("express"),
   {
-    getAllEvent,
+    buyTicket
+    /*  getAllEvent,
     createComments,
     getEventComment,
-    createReply,
-    getReplyComment,
-    deleteComments
-  } = require("../controller/event");
+    createReply, */
+    // getReplyComment,
+    // deleteComments
+  } = require("../controller/ticket");
 
 let router = express.Router();
 
-router.post("/tickrtand ", getAllEvent);
+router.post("/ticket/create", getAllEvent);
 
 // router.post("/event/comment", getEventComment);
 
