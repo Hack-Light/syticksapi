@@ -11,7 +11,7 @@ const express = require("express"),
 
 let router = express.Router();
 
-router.post("/ticket/create", getAllEvent);
+router.post("/ticket/enquire", buyTicket);
 
 // router.post("/event/comment", getEventComment);
 
