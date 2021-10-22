@@ -18,6 +18,7 @@ let registerRoute = require("./routes/register");
 let loginRoute = require("./routes/login");
 let indexRoute = require("./routes/index");
 let eventRoute = require("./routes/events");
+let ticketRoute = require("./routes/ticket");
 
 // connect to database
 mongoose
@@ -45,7 +46,7 @@ app.use(registerRoute);
 app.use(loginRoute);
 app.use(indexRoute);
 app.use(eventRoute);
-// app.use(otpRoute);
+app.use(ticketRoute);
 // app.use(postsRoute);
 // app.use(crimeRoute);
 // app.use(userRoute);
