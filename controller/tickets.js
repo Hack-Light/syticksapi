@@ -26,7 +26,7 @@ exports.buyTicket = async (req, res) => {
   }, []);
 
   if (!ticket) {
-    return res.status(500).json({
+    return res.status(200).json({
       success: true,
       data: {
         count: 0,
