@@ -14,7 +14,7 @@ const ticketSchema = new mongoose.Schema(
       required: true,
       ref: "event"
     },
-    maxCount: {
+    count: {
       type: Date,
       default: Date.now(),
       required: true

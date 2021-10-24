@@ -29,7 +29,7 @@ exports.buyTicket = async (req, res) => {
     return res.status(500).json({
       success: true,
       data: {
-        maxCount: 0,
+        count: 0,
         dummyCount: 0,
         user_id,
         event_id,
