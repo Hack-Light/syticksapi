@@ -7,7 +7,7 @@ const express = require("express"),
     createReply, */
     // getReplyComment,
     // deleteComments
-  } = require("../controller/ticket");
+  } = require("../controller/tickets");
 
 let router = express.Router();
 

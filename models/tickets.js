@@ -23,7 +23,7 @@ const ticketSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    tx_ref,
+    /*  tx_ref,
     flw_ref,
     paymentId,
     paymentType,
@@ -31,7 +31,7 @@ const ticketSchema = new mongoose.Schema(
     amount,
     modalauditid,
     device_fingerprint,
-    status,
+    status */
 
     dummyCount: {
       type: {
