@@ -4,8 +4,7 @@ const eventModel = require("../models/event"),
   Ticket = require("../models/tickets");
 
 exports.buyTicket = async (req, res) => {
-  const { _id, event_id, maxCount, ticketArrayList, dummyCount, _id } =
-    req.body;
+  const { _id, event_id, maxCount, ticketArrayList, dummyCount } = req.body;
 
   let ticket = await Ticket.findOne({
     user_id: _id,
