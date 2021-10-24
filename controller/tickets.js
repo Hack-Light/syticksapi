@@ -4,7 +4,8 @@ const eventModel = require("../models/event"),
   Ticket = require("../models/tickets");
 
 exports.buyTicket = async (req, res) => {
-  const { _id, event_id, maxCount, ticketArrayList, dummyCount } = req.body;
+  const { _id, event_id, maxCount, ticketArrayList, dummyCount, _id } =
+    req.body;
 
   let ticket = await Ticket.findOne({
     user_id: _id,
@@ -31,7 +32,7 @@ exports.buyTicket = async (req, res) => {
       data: {
         count: 0,
         dummyCount: 0,
-        user_id,
+        user_id: _id,
         event_id,
         tickets: data
       }
