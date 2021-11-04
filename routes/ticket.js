@@ -1,6 +1,7 @@
 const express = require("express"),
   {
-    checkTicket
+    checkTicket,
+    buyTicket
     /*  getAllEvent,
     createComments,
     getEventComment,
@@ -13,14 +14,6 @@ let router = express.Router();
 
 router.post("/ticket/enquire", checkTicket);
 
-// router.post("/event/comment", getEventComment);
-
-// router.post("/event/comment/create", createComments);
-
-// router.post("/event/reply/create", createReply);
-
-// router.post("/event/reply", getReplyComment);
-
-// router.post("/event/comment/delete", deleteComments);
+router.post("/ticket/create", buyTicket);
 
 module.exports = router;
