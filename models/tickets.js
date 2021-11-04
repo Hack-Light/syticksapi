@@ -7,46 +7,35 @@ const ticketSchema = new mongoose.Schema(
       required: true,
       ref: "user"
     },
-    paid: {},
+    paid: { type: Boolean.apply, default: false },
 
     event_id: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "event"
     },
-    count: {
-      type: Date,
-      default: Date.now(),
-      required: true
+    maxCount: {
+      type: Number
     },
     paid: {
       type: Boolean,
       default: false
     },
-    /*  tx_ref,
-    flw_ref,
-    paymentId,
-    paymentType,
-    IP,
-    amount,
-    modalauditid,
-    device_fingerprint,
-    status */
-
-    dummyCount: {
-      type: {
-        type: Number,
-        default: 0
-      },
-      ticketArrayList: [
-        {
-          priceName: String,
-          priceAmount: Number,
-          tickCount: Number,
-          ticketAmount: Number
-        }
-      ]
-    }
+    details: [
+      {
+        priceName: String,
+        priceAmount: Number,
+        tickCount: Number,
+        ticketAmount: Number
+      }
+    ],
+    transactions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "transaction"
+      }
+    ]
   },
   { timestamps: true }
 );
