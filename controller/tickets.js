@@ -41,7 +41,7 @@ exports.checkTicket = async (req, res) => {
 };
 
 exports.buyTicket = async (req, res) => {
-  const { _id, event_id, maxCount, tickets, dummyCount } = req.body;
+  const { _id, event_id, maxCount, tickets } = req.body;
 
   try {
     let ticket = await Ticket.findOne({
@@ -91,6 +91,8 @@ exports.buyTicket = async (req, res) => {
           }
         ];
       }, []);
+
+      console.log(data);
 
       data.map(element => {
         return tickets.tickets.map(ele => {
