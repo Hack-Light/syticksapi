@@ -135,7 +135,7 @@ exports.buyTicket = async (req, res) => {
       });
 
       let tx = await newTransaction.save();
-      tick.trasactions.push(tx._id);
+      tick.transactions.push(tx._id);
 
       await tick.save();
 
