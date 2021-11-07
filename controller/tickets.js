@@ -55,7 +55,7 @@ exports.buyTicket = async (req, res) => {
 
   try {
     let ticket = await Ticket.findOne({
-      user_id: _id,
+      user_id: tickets._id,
       event_id: tickets.event_id,
       paid: true
     }).lean();
