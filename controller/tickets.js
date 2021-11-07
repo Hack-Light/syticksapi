@@ -126,7 +126,7 @@ exports.buyTicket = async (req, res) => {
       let tx = await newTransaction.save();
 
       let tick = new Ticket({
-        user_id: _id,
+        user_id: tickets._id,
         event_id: event_id,
         maxCount: count,
         paid: true,
