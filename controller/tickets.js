@@ -89,7 +89,7 @@ exports.buyTicket = async (req, res) => {
         success: true
       });
     } else {
-      let eventnew = await eventModel.findOne({ _id: ticket.event_id }).lean();
+      let eventnew = await eventModel.findOne({ _id: tickets.event_id }).lean();
       console.log(eventnew);
       let data = eventnew.pricings.reduce((acc, cur) => {
         return [
