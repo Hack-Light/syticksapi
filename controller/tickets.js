@@ -82,8 +82,14 @@ exports.buyTicket = async (req, res) => {
 
       let tx = await newTransaction.save();
 
+      ticket = await Ticket.findOne({
+        user_id: tickets._id,
+        event_id: tickets.event_id,
+        paid: true
+      });
+
       ticket.transactions.push(tx._id);
-      ticket.save();
+      await ticket.save();
 
       return res.status(200).json({
         success: true
