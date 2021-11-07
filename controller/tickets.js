@@ -42,6 +42,7 @@ exports.checkTicket = async (req, res) => {
 
 exports.buyTicket = async (req, res) => {
   const { _id, event_id, maxCount, tickets } = req.body;
+  console.log(req.body);
 
   try {
     let ticket = await Ticket.findOne({
