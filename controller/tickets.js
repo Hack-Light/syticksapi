@@ -41,13 +41,22 @@ exports.checkTicket = async (req, res) => {
 };
 
 exports.buyTicket = async (req, res) => {
-  const { _id, event_id, maxCount, tickets } = req.body;
+  const {
+    count,
+    tickets,
+    IP,
+    device_fingerprint,
+    flw_ref,
+    modalauditid,
+    paymentId,
+    txRef
+  } = req.body;
   console.log(req.body);
 
   try {
     let ticket = await Ticket.findOne({
       user_id: _id,
-      event_id: event_id,
+      event_id: tickets.event_id,
       paid: true
     }).lean();
 
@@ -63,7 +72,7 @@ exports.buyTicket = async (req, res) => {
 
       let newTransaction = new Transaction({
         ticket_id: ticket._id,
-        tx_ref,
+        tx_ref: txRef,
         flw_ref,
         paymentId,
         IP,
@@ -80,7 +89,7 @@ exports.buyTicket = async (req, res) => {
         success: true
       });
     } else {
-      let eventnew = await eventModel.findOne({ _id: event_id }).lean();
+      let eventnew = await eventModel.findOne({ _id: ticket.event_id }).lean();
       console.log(eventnew);
       let data = eventnew.pricings.reduce((acc, cur) => {
         return [
@@ -106,7 +115,7 @@ exports.buyTicket = async (req, res) => {
 
       let newTransaction = new Transaction({
         ticket_id: ticket._id,
-        tx_ref,
+        tx_ref: txRef,
         flw_ref,
         paymentId,
         IP,
@@ -119,7 +128,7 @@ exports.buyTicket = async (req, res) => {
       let tick = new Ticket({
         user_id: _id,
         event_id: event_id,
-        maxCount: maxCount,
+        maxCount: count,
         paid: true,
         transactions: [tx._id],
         details: data
