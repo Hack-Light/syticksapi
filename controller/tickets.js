@@ -113,18 +113,6 @@ exports.buyTicket = async (req, res) => {
         });
       });
 
-      let newTransaction = new Transaction({
-        ticket_id: ticket._id,
-        tx_ref: txRef,
-        flw_ref,
-        paymentId,
-        IP,
-        modalauditid,
-        device_fingerprint
-      });
-
-      let tx = await newTransaction.save();
-
       let tick = new Ticket({
         user_id: tickets._id,
         event_id: event_id,
@@ -135,6 +123,18 @@ exports.buyTicket = async (req, res) => {
       });
 
       tick.save();
+
+      let newTransaction = new Transaction({
+        ticket_id: tick._id,
+        tx_ref: txRef,
+        flw_ref,
+        paymentId,
+        IP,
+        modalauditid,
+        device_fingerprint
+      });
+
+      let tx = await newTransaction.save();
 
       return res.status(200).json({
         success: true
