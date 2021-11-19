@@ -51,7 +51,7 @@ exports.checkTicket = async (req, res) => {
 
       return res.status(200).json({
         success: true,
-        count: 0,
+        count: ticket.count,
         dummyCount: 0,
         _id: _id,
         event_id: event_id,
@@ -86,7 +86,7 @@ exports.buyTicket = async (req, res) => {
     if (ticket) {
       ticket.details.map(element => {
         return tickets.tickets.map(ele => {
-          if (element.priceName == ele.ticketTitle) {
+          if (element.priceName == ele.priceName) {
             return (element.priceAmount =
               Number(element.priceAmount) + Number(ele.ticketCount));
           }
@@ -135,7 +135,7 @@ exports.buyTicket = async (req, res) => {
 
       data.map(element => {
         return tickets.tickets.map(ele => {
-          if (element.priceName == ele.ticketTitle) {
+          if (element.priceName == ele.priceName) {
             return (element.priceAmount =
               Number(element.priceAmount) + Number(ele.ticketCount));
           }
