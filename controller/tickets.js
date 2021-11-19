@@ -134,7 +134,7 @@ exports.buyTicket = async (req, res) => {
       console.log(data);
 
       data.map(element => {
-        return tickets.tickets.map(ele => {
+        return tickets.map(ele => {
           if (element.type == ele.ticketTitle) {
             return (element.num =
               Number(element.num) + Number(ele.ticketCount));
