@@ -14,8 +14,6 @@ exports.checkTicket = async (req, res) => {
       paid: true
     }).lean();
 
-    
-
     if (!ticket) {
       let event = await eventModel.findOne({ _id: event_id });
       let data = event.pricings.reduce((acc, cur) => {
@@ -49,6 +47,8 @@ exports.checkTicket = async (req, res) => {
         ];
       }, []);
 
+      console.log(res);
+
       return res.status(200).json({
         success: true,
         count: 0,
@@ -58,7 +58,9 @@ exports.checkTicket = async (req, res) => {
         tickets: res
       });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.buyTicket = async (req, res) => {
