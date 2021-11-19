@@ -33,12 +33,20 @@ exports.checkTicket = async (req, res) => {
       return res.status(200).json({
         success: true,
         count: 0,
-        dummyCount: 0,
+        maxCount: 0,
         _id: _id,
         event_id,
         tickets: data
       });
     } else {
+      return res.status(200).json({
+        success: true,
+        count: 0,
+        maxCount: 0,
+        _id: _id,
+        event_id: event_id,
+        tickets: ticket.details
+      });
     }
   } catch (error) {}
 };
