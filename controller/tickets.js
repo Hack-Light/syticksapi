@@ -14,10 +14,10 @@ exports.checkTicket = async (req, res) => {
       paid: true
     }).lean();
 
-    console.log(ticket);
+    
 
     if (!ticket) {
-      let event = await eventModel.findOne({ _id: event_id }).lean();
+      let event = await eventModel.findOne({ _id: event_id });
       let data = event.pricings.reduce((acc, cur) => {
         return [
           ...acc,
