@@ -24,8 +24,7 @@ exports.checkTicket = async (req, res) => {
           {
             ...cur,
             ticketCount: 0,
-            ticketAmount: 0,
-            dummyCount: 0
+            ticketAmount: 0
           }
         ];
       }, []);
@@ -34,6 +33,7 @@ exports.checkTicket = async (req, res) => {
         success: true,
         count: 0,
         maxCount: 0,
+        dummyCount: 0,
         _id: _id,
         event_id,
         tickets: data
@@ -52,7 +52,7 @@ exports.checkTicket = async (req, res) => {
       return res.status(200).json({
         success: true,
         count: 0,
-        maxCount: 0,
+        dummyCount: 0,
         _id: _id,
         event_id: event_id,
         tickets: res
