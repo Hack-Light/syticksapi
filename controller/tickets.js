@@ -12,7 +12,7 @@ exports.checkTicket = async (req, res) => {
       user_id: _id,
       event_id: event_id,
       paid: true
-    });
+    }).lean();
 
     console.log(ticket);
 
@@ -39,13 +39,23 @@ exports.checkTicket = async (req, res) => {
         tickets: data
       });
     } else {
+      let res = ticket.details.reduce((acc, cur) => {
+        return [
+          ...acc,
+          {
+            ...cur,
+            ticketCount: 0
+          }
+        ];
+      }, []);
+
       return res.status(200).json({
         success: true,
         count: 0,
         maxCount: 0,
         _id: _id,
         event_id: event_id,
-        tickets: ticket.details
+        tickets: res
       });
     }
   } catch (error) {}
