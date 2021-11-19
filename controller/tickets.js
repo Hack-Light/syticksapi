@@ -5,6 +5,8 @@ const eventModel = require("../models/event"),
 exports.checkTicket = async (req, res) => {
   const { _id, event_id } = req.body;
 
+  console.log(req.body);
+
   try {
     let ticket = await Ticket.findOne({
       user_id: _id,
@@ -36,6 +38,7 @@ exports.checkTicket = async (req, res) => {
         event_id,
         tickets: data
       });
+    } else {
     }
   } catch (error) {}
 };
