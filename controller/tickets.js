@@ -37,7 +37,9 @@ exports.checkTicket = async (req, res) => {
 				tickets: data,
 			});
 		} else {
-			// console.log('12345', ticket);
+			let data = ticket.details.reduce((acc, cur) => {
+				return [...acc, { ...cur, ticketCount: 0 }];
+			}, []);
 
 			return res.status(200).json({
 				success: true,
@@ -45,7 +47,7 @@ exports.checkTicket = async (req, res) => {
 				dummyCount: 0,
 				_id: _id,
 				event_id: event_id,
-				tickets: ticket.details,
+				tickets: data,
 			});
 		}
 	} catch (error) {
