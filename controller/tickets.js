@@ -37,16 +37,6 @@ exports.checkTicket = async (req, res) => {
 				tickets: data,
 			});
 		} else {
-			let res1 = ticket.details.reduce((acc, cur) => {
-				return [
-					...acc,
-					{
-						...cur,
-						ticketCount: 0,
-					},
-				];
-			}, []);
-
 			// console.log('12345', ticket);
 
 			return res.status(200).json({
@@ -55,7 +45,7 @@ exports.checkTicket = async (req, res) => {
 				dummyCount: 0,
 				_id: _id,
 				event_id: event_id,
-				tickets: res1,
+				tickets: ticket.details,
 			});
 		}
 	} catch (error) {
@@ -65,7 +55,6 @@ exports.checkTicket = async (req, res) => {
 
 exports.buyTicket = async (req, res) => {
 	const {
-		count,
 		tickets,
 		IP,
 		device_fingerprint,
@@ -74,7 +63,6 @@ exports.buyTicket = async (req, res) => {
 		paymentId,
 		txRef,
 	} = req.body;
-	console.log('buy', req.body);
 
 	try {
 		let ticket = await Ticket.findOne({
