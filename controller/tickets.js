@@ -37,25 +37,25 @@ exports.checkTicket = async (req, res) => {
 				tickets: data,
 			});
 		} else {
-			let res1 = ticket.details.reduce((acc, cur) => {
-				return [
-					...acc,
-					{
-						...cur,
-						ticketCount: 0,
-					},
-				];
-			}, []);
+			// let res1 = ticket.details.reduce((acc, cur) => {
+			// 	return [
+			// 		...acc,
+			// 		{
+			// 			...cur,
+			// 			ticketCount: 0,
+			// 		},
+			// 	];
+			// }, []);
 
-			console.log('12345', ticket);
+			// console.log('12345', ticket);
 
 			return res.status(200).json({
-				success: true,
-				count: ticket.count,
-				dummyCount: 0,
-				_id: _id,
-				event_id: event_id,
-				tickets: res1,
+				// success: true,
+				// count: ticket.count,
+				// dummyCount: 0,
+				// _id: _id,
+				// event_id: event_id,
+				// tickets: res1,
 			});
 		}
 	} catch (error) {
@@ -147,7 +147,6 @@ exports.buyTicket = async (req, res) => {
 				count: tickets.count,
 				user_id: tickets._id,
 				event_id: tickets.event_id,
-
 				paid: true,
 				transactions: [],
 				details: tickets.tickets,
