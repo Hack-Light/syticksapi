@@ -51,7 +51,7 @@ exports.checkTicket = async (req, res) => {
 
 			return res.status(200).json({
 				success: true,
-				count: 0,
+				count: ticket.count,
 				dummyCount: 0,
 				_id: _id,
 				event_id: event_id,
@@ -144,7 +144,7 @@ exports.buyTicket = async (req, res) => {
 			});
 
 			let tick = new Ticket({
-				count: count,
+				count: tickets.count,
 				user_id: tickets._id,
 				event_id: tickets.event_id,
 				maxCount: count,
