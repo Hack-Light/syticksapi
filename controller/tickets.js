@@ -47,11 +47,11 @@ exports.checkTicket = async (req, res) => {
 				];
 			}, []);
 
-			console.log('12345', ticket.count);
+			console.log('12345', ticket);
 
 			return res.status(200).json({
 				success: true,
-				count: ticket.count,
+				count: 0,
 				dummyCount: 0,
 				_id: _id,
 				event_id: event_id,
