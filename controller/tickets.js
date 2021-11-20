@@ -5,7 +5,7 @@ const eventModel = require('../models/event'),
 exports.checkTicket = async (req, res) => {
 	const { _id, event_id } = req.body;
 
-	console.log(req.body);
+	console.log('check', req.body);
 
 	try {
 		let ticket = await Ticket.findOne({
@@ -74,7 +74,7 @@ exports.buyTicket = async (req, res) => {
 		paymentId,
 		txRef,
 	} = req.body;
-	console.log(req.body);
+	console.log('buy', req.body);
 
 	try {
 		let ticket = await Ticket.findOne({
@@ -105,7 +105,7 @@ exports.buyTicket = async (req, res) => {
 
 			let tx = await newTransaction.save();
 
-			ticket = await Ticket.findOne({
+			let ticket = await Ticket.findOne({
 				user_id: tickets._id,
 				event_id: tickets.event_id,
 				paid: true,
@@ -120,7 +120,7 @@ exports.buyTicket = async (req, res) => {
 			});
 		} else {
 			let eventnew = await eventModel.findOne({ _id: tickets.event_id }).lean();
-			console.log(eventnew);
+			console.log('nwe event', eventnew);
 			let data = eventnew.pricings.reduce((acc, cur) => {
 				return [
 					...acc,
@@ -132,7 +132,7 @@ exports.buyTicket = async (req, res) => {
 				];
 			}, []);
 
-			console.log(data);
+			console.log('data', data);
 
 			data.map((element) => {
 				return tickets.tickets.map((ele) => {
