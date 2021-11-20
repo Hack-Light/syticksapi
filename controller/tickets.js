@@ -119,39 +119,31 @@ exports.buyTicket = async (req, res) => {
 				success: true,
 			});
 		} else {
-			let eventnew = await eventModel.findOne({ _id: tickets.event_id }).lean();
-			console.log('nwe event', eventnew);
-			let data = eventnew.pricings.reduce((acc, cur) => {
-				return [
-					...acc,
-					{
-						...cur,
-						num: 0,
-						ticketAmount: 0,
-					},
-				];
-			}, []);
+			// let eventnew = await eventModel.findOne({ _id: tickets.event_id }).lean();
+			// console.log('nwe event', eventnew);
+			// // let data = eventnew.pricings.reduce((acc, cur) => {
+			// 	return [
+			// 		...acc,
+			// 		{
+			// 			...cur,
+			// 			num: 0,
+			// 			ticketAmount: 0,
+			// 		},
+			// 	];
+			// }, []);
 
-			console.log('data', data);
+			// console.log('data', data);
 
-			data.map((element) => {
-				return tickets.tickets.map((ele) => {
-					if (element.priceName == ele.priceName) {
-						return (element.priceAmount =
-							Number(element.priceAmount) + Number(ele.ticketCount));
-					}
-				});
-			});
+			// data.map((element) => {
+			// 	return tickets.tickets.map((ele) => {
+			// 		if (element.priceName == ele.priceName) {
+			// 			return (element.priceAmount =
+			// 				Number(element.priceAmount) + Number(ele.ticketCount));
+			// 		}
+			// 	});
+			// });
 
-			let tick = new Ticket({
-				count: tickets.count,
-				user_id: tickets._id,
-				event_id: tickets.event_id,
-				maxCount: count,
-				paid: true,
-				transactions: [],
-				details: data,
-			});
+			let tick = new Ticket(tickets);
 
 			tick = await tick.save();
 
