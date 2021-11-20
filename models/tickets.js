@@ -25,7 +25,7 @@ const ticketSchema = new mongoose.Schema(
 			{
 				priceName: String,
 				priceAmount: Number,
-				tickCount: Number,
+				ticketCount: Number,
 				ticketAmount: Number,
 			},
 		],
