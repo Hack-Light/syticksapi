@@ -143,7 +143,15 @@ exports.buyTicket = async (req, res) => {
 			// 	});
 			// });
 
-			let tick = new Ticket(tickets);
+			let tick = new Ticket({
+				count: tickets.count,
+				user_id: tickets._id,
+				event_id: tickets.event_id,
+
+				paid: true,
+				transactions: [],
+				details: tickets.tickets,
+			});
 
 			tick = await tick.save();
 
