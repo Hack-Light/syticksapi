@@ -37,25 +37,25 @@ exports.checkTicket = async (req, res) => {
 				tickets: data,
 			});
 		} else {
-			// let res1 = ticket.details.reduce((acc, cur) => {
-			// 	return [
-			// 		...acc,
-			// 		{
-			// 			...cur,
-			// 			ticketCount: 0,
-			// 		},
-			// 	];
-			// }, []);
+			let res1 = ticket.details.reduce((acc, cur) => {
+				return [
+					...acc,
+					{
+						...cur,
+						ticketCount: 0,
+					},
+				];
+			}, []);
 
 			// console.log('12345', ticket);
 
 			return res.status(200).json({
-				// success: true,
-				// count: ticket.count,
-				// dummyCount: 0,
-				// _id: _id,
-				// event_id: event_id,
-				// tickets: res1,
+				success: true,
+				count: ticket.count,
+				dummyCount: 0,
+				_id: _id,
+				event_id: event_id,
+				tickets: res1,
 			});
 		}
 	} catch (error) {
@@ -119,29 +119,29 @@ exports.buyTicket = async (req, res) => {
 				success: true,
 			});
 		} else {
-			// let eventnew = await eventModel.findOne({ _id: tickets.event_id }).lean();
-			// console.log('nwe event', eventnew);
-			// // let data = eventnew.pricings.reduce((acc, cur) => {
-			// 	return [
-			// 		...acc,
-			// 		{
-			// 			...cur,
-			// 			num: 0,
-			// 			ticketAmount: 0,
-			// 		},
-			// 	];
-			// }, []);
+			let eventnew = await eventModel.findOne({ _id: tickets.event_id }).lean();
+			console.log('nwe event', eventnew);
+			let data = eventnew.pricings.reduce((acc, cur) => {
+				return [
+					...acc,
+					{
+						...cur,
+						num: 0,
+						ticketAmount: 0,
+					},
+				];
+			}, []);
 
-			// console.log('data', data);
+			console.log('data', data);
 
-			// data.map((element) => {
-			// 	return tickets.tickets.map((ele) => {
-			// 		if (element.priceName == ele.priceName) {
-			// 			return (element.priceAmount =
-			// 				Number(element.priceAmount) + Number(ele.ticketCount));
-			// 		}
-			// 	});
-			// });
+			data.map((element) => {
+				return tickets.tickets.map((ele) => {
+					if (element.priceName == ele.priceName) {
+						return (element.priceAmount =
+							Number(element.priceAmount) + Number(ele.ticketCount));
+					}
+				});
+			});
 
 			let tick = new Ticket({
 				count: tickets.count,
