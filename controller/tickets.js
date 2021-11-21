@@ -182,7 +182,7 @@ exports.getHistory = async (req, res) => {
 		if (tickets.length > 0) {
 			return res.status(200).json({
 				success: true,
-				data: tickets,
+				data: resArr,
 			});
 		} else {
 			return res.status(200).json({
