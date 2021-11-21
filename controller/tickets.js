@@ -1,7 +1,7 @@
 const eventModel = require('../models/event'),
 	Ticket = require('../models/tickets'),
 	Transaction = require('../models/transaction'),
-	Organiser = require('./models/organisers');
+	Organiser = require('../models/organisers');
 
 exports.checkTicket = async (req, res) => {
 	const { _id, event_id } = req.body;
