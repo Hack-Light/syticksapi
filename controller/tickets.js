@@ -182,7 +182,7 @@ exports.getHistory = async (req, res) => {
 			console.log(resArr);
 			return res.status(200).json({
 				success: true,
-				data: tickets,
+				data: resArr,
 			});
 		} else {
 			return res.status(200).json({
