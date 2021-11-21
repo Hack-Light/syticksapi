@@ -151,35 +151,34 @@ exports.getHistory = async (req, res) => {
 		}).lean();
 		let resArr = [];
 
-		tickets.forEach(async (element) => {
-			let obj = {};
-			let event = await eventModel
-				.findOne({ _id: element.event_id })
-				.select('-comments -pricings -sponsors -createdAt -updatedAt')
-				.populate({
-					path: 'organiser',
-					model: Organiser,
-					select: 'name',
-				})
-
-				.lean();
-			let userTicket = [];
-
-			element.details.forEach(async (el) => {
-				let count = el.ticketCount;
-				for (let i = 0; i < count; i++) {
-					let obj2 = {};
-					obj2.priceName = el.priceName;
-					obj2.id = nanoid();
-					userTicket.push(obj2);
-				}
-			});
-
-			obj = { ...event, userTicket: userTicket };
-			resArr.push(obj);
-		});
-
 		if (tickets.length > 0) {
+			tickets.forEach(async (element) => {
+				let obj = {};
+				let event = await eventModel
+					.findOne({ _id: element.event_id })
+					.select('-comments -pricings -sponsors -createdAt -updatedAt')
+					.populate({
+						path: 'organiser',
+						model: Organiser,
+						select: 'name',
+					})
+
+					.lean();
+				let userTicket = [];
+
+				element.details.forEach(async (el) => {
+					let count = el.ticketCount;
+					for (let i = 0; i < count; i++) {
+						let obj2 = {};
+						obj2.priceName = el.priceName;
+						obj2.id = nanoid();
+						userTicket.push(obj2);
+					}
+				});
+
+				obj = { ...event, userTicket: userTicket };
+				resArr.push(obj);
+			});
 			return res.status(200).json({
 				success: true,
 				data: resArr,
