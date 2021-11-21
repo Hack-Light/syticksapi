@@ -149,7 +149,11 @@ exports.getHistory = async (req, res) => {
 			let event = await eventModel
 				.findOne({ _id: element.event_id })
 				.select('-comments -pricings')
-				.populate(organisers, 'name')
+				.populate({
+					path: 'organisers',
+					model: Organiser,
+					select: 'name',
+				})
 				.lean();
 			console.log(event);
 		});
