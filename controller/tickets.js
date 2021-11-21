@@ -152,6 +152,7 @@ exports.getHistory = async (req, res) => {
 
 		if (tickets.length > 0) {
 			let resArr = [];
+
 			tickets.forEach(async (element) => {
 				let event = await eventModel
 					.findOne({ _id: element.event_id })
@@ -162,7 +163,7 @@ exports.getHistory = async (req, res) => {
 						select: 'name',
 					})
 					.lean();
-				let userTicket = [];
+				let usersTicket = [];
 
 				element.details.forEach(async (el) => {
 					let count = el.ticketCount;
@@ -170,15 +171,15 @@ exports.getHistory = async (req, res) => {
 						let obj2 = {};
 						obj2.priceName = el.priceName;
 						obj2.id = nanoid();
-						userTicket.push(obj2);
+						usersTicket.push(obj2);
 					}
 				});
 
-				let obj = { ...event, usersTicket: userTicket };
-				console.log(obj);
+				let obj = { ...event, usersTicket: usersTicket };
+				// console.log(obj);
 				resArr.push(obj);
 			});
-
+			console.log(resArr);
 			return res.status(200).json({
 				success: true,
 				data: tickets,
