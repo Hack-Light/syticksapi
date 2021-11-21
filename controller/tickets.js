@@ -140,7 +140,7 @@ exports.getHistory = async (req, res) => {
 
 	try {
 		let tickets = await Ticket.find({
-			user_id: user_i,
+			user_id: user_id,
 			paid: true,
 		});
 
