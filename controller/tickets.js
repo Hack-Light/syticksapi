@@ -140,11 +140,11 @@ exports.getHistory = async (req, res) => {
 
 	try {
 		let tickets = await Ticket.find({
-			user_id: tickets._id,
+			user_id: user_i,
 			paid: true,
 		});
 
-		if (ticket) {
+		if (tickets.length > 0) {
 			return res.status(200).json({
 				success: true,
 				data: tickets,
