@@ -149,10 +149,8 @@ exports.getHistory = async (req, res) => {
 			user_id: user_id,
 			paid: true,
 		}).lean();
-
+		let resArr = [];
 		if (tickets.length > 0) {
-			let resArr = [];
-
 			tickets.forEach(async (element) => {
 				let event = await eventModel
 					.findOne({ _id: element.event_id })
