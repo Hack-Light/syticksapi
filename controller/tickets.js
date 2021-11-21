@@ -149,9 +149,9 @@ exports.getHistory = async (req, res) => {
 			user_id: user_id,
 			paid: true,
 		}).lean();
-		let resArr = [];
 
 		if (tickets.length > 0) {
+			let resArr = [];
 			tickets.forEach(async (element) => {
 				let obj = {};
 				let event = await eventModel
@@ -179,6 +179,7 @@ exports.getHistory = async (req, res) => {
 				obj = { ...event, userTicket: userTicket };
 				resArr.push(obj);
 			});
+			console.log(resArr);
 			return res.status(200).json({
 				success: true,
 				data: resArr,
