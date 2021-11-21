@@ -153,7 +153,6 @@ exports.getHistory = async (req, res) => {
 		if (tickets.length > 0) {
 			let resArr = [];
 			tickets.forEach(async (element) => {
-				let obj = {};
 				let event = await eventModel
 					.findOne({ _id: element.event_id })
 					.select('-comments -pricings -sponsors -createdAt -updatedAt')
@@ -176,7 +175,8 @@ exports.getHistory = async (req, res) => {
 					}
 				});
 
-				obj = { ...event, userTicket: userTicket };
+				let obj = { ...event, userTicket: userTicket };
+				console.log(obj);
 				resArr.push(obj);
 			});
 			console.log(resArr);
