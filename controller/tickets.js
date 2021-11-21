@@ -1,6 +1,7 @@
 const eventModel = require('../models/event'),
 	Ticket = require('../models/tickets'),
-	Transaction = require('../models/transaction');
+	Transaction = require('../models/transaction'),
+	Organiser = require('./models/organisers');
 
 exports.checkTicket = async (req, res) => {
 	const { _id, event_id } = req.body;
@@ -123,6 +124,34 @@ exports.buyTicket = async (req, res) => {
 
 			return res.status(200).json({
 				success: true,
+			});
+		}
+	} catch (err) {
+		console.log(err);
+
+		return res.status(400).json({
+			success: false,
+		});
+	}
+};
+
+exports.getHistory = async (req, res) => {
+	const { user_id } = req.body;
+
+	try {
+		let tickets = await Ticket.find({
+			user_id: tickets._id,
+			paid: true,
+		});
+
+		if (ticket) {
+			return res.status(200).json({
+				success: true,
+				data: tickets,
+			});
+		} else {
+			return res.status(200).json({
+				success: false,
 			});
 		}
 	} catch (err) {
