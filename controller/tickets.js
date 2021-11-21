@@ -145,7 +145,7 @@ exports.getHistory = async (req, res) => {
 			paid: true,
 		}).lean();
 
-		tickets.forEach((element) => {
+		tickets.forEach(async (element) => {
 			let event = await eventModel
 				.findOne({ _id: element.event_id })
 				.select('-comments -pricings')
