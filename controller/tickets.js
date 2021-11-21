@@ -161,7 +161,6 @@ exports.getHistory = async (req, res) => {
 						model: Organiser,
 						select: 'name',
 					})
-
 					.lean();
 				let userTicket = [];
 
@@ -175,14 +174,14 @@ exports.getHistory = async (req, res) => {
 					}
 				});
 
-				let obj = { ...event, userTicket: userTicket };
+				let obj = { ...event, usersTicket: userTicket };
 				console.log(obj);
 				resArr.push(obj);
 			});
-			console.log(resArr);
+
 			return res.status(200).json({
 				success: true,
-				data: resArr,
+				data: tickets,
 			});
 		} else {
 			return res.status(200).json({
