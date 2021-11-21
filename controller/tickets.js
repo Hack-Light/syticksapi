@@ -2,6 +2,7 @@ const eventModel = require('../models/event'),
 	Ticket = require('../models/tickets'),
 	Transaction = require('../models/transaction'),
 	Organiser = require('../models/organisers');
+const organisers = require('../models/organisers');
 
 exports.checkTicket = async (req, res) => {
 	const { _id, event_id } = req.body;
@@ -142,6 +143,15 @@ exports.getHistory = async (req, res) => {
 		let tickets = await Ticket.find({
 			user_id: user_id,
 			paid: true,
+		}).lean();
+
+		tickets.forEach((element) => {
+			let event = await eventModel
+				.findOne({ _id: element.event_id })
+				.select('-comments -pricings')
+				.populate(organisers, 'name')
+				.lean();
+			console.log(event);
 		});
 
 		if (tickets.length > 0) {
