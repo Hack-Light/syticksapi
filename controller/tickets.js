@@ -2,7 +2,12 @@ const eventModel = require('../models/event'),
 	Ticket = require('../models/tickets'),
 	Transaction = require('../models/transaction'),
 	Organiser = require('../models/organisers');
-const organisers = require('../models/organisers');
+// const organisers = require('../models/organisers');
+const { customAlphabet } = require('nanoid');
+const nanoid = customAlphabet(
+	'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+	8,
+);
 
 exports.checkTicket = async (req, res) => {
 	const { _id, event_id } = req.body;
@@ -144,18 +149,34 @@ exports.getHistory = async (req, res) => {
 			user_id: user_id,
 			paid: true,
 		}).lean();
+		let resArr = [];
 
 		tickets.forEach(async (element) => {
+			let obj = {};
 			let event = await eventModel
 				.findOne({ _id: element.event_id })
-				.select('-comments -pricings')
+				.select('-comments -pricings -sponsors -createdAt -updatedAt')
 				.populate({
-					path: 'organisers',
+					path: 'organiser',
 					model: Organiser,
 					select: 'name',
 				})
+
 				.lean();
-			console.log(event);
+			let userTicket = [];
+
+			tickets.details.forEach(async (el) => {
+				let count = el.ticketCount;
+				for (let i = 0; i < count; i++) {
+					let obj2 = {};
+					obj2.priceName = el.priceName;
+					obj2.id = nanoid();
+					obj.userTicket[obj2];
+				}
+			});
+
+			obj = { ...event, userTicket: userTicket };
+			resArr.push(obj);
 		});
 
 		if (tickets.length > 0) {
