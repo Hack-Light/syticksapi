@@ -165,7 +165,7 @@ exports.getHistory = async (req, res) => {
 				.lean();
 			let userTicket = [];
 
-			tickets.details.forEach(async (el) => {
+			element.details.forEach(async (el) => {
 				let count = el.ticketCount;
 				for (let i = 0; i < count; i++) {
 					let obj2 = {};
