@@ -143,13 +143,13 @@ exports.buyTicket = async (req, res) => {
 
 exports.getHistory = async (req, res) => {
 	const { user_id } = req.body;
-
+	let resArr = [];
 	try {
 		let tickets = await Ticket.find({
 			user_id: user_id,
 			paid: true,
 		}).lean();
-		let resArr = [];
+
 		if (tickets.length > 0) {
 			tickets.forEach(async (element) => {
 				let event = await eventModel
@@ -174,13 +174,13 @@ exports.getHistory = async (req, res) => {
 				});
 
 				let obj = { ...event, usersTicket: usersTicket };
-				console.log(obj);
+				// console.log(obj);
 				resArr.push(obj);
-				console.log('er', resArr);
+				// console.log('er', resArr);
 			});
 			return res.status(200).json({
 				success: true,
-				resArr,
+				data: resArr,
 			});
 		} else {
 			return res.status(200).json({
