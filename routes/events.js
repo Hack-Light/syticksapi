@@ -23,6 +23,6 @@ router.post("/event/reply", getReplyComment);
 
 router.post("/event/comment/delete", deleteComments);
 
-router.get("/event/single", getEvent);
+router.post("/event/single", getEvent);
 
 module.exports = router;
