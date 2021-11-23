@@ -171,7 +171,7 @@ exports.getHistory = async (req, res) => {
 					for (let i = 0; i < count; i++) {
 						let obj2 = {};
 						obj2.priceName = el.priceName;
-						obj2.id = nanoid();
+						obj2._id = nanoid();
 						usersTicket.push(obj2);
 					}
 				});
