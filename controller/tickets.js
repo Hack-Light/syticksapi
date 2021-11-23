@@ -143,7 +143,7 @@ exports.buyTicket = async (req, res) => {
 
 exports.getHistory = async (req, res) => {
 	const { user_id } = req.body;
-	
+	let data = {}
 	try {
 		let tickets = await Ticket.find({
 			user_id: user_id,
@@ -151,7 +151,7 @@ exports.getHistory = async (req, res) => {
 		}).lean();
 
 		if (tickets.length > 0) {
-			let data = {}
+			
 			data.success = true;
 			data.resArr = [];
 			tickets.forEach(async (element) => {
