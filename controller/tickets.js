@@ -181,7 +181,7 @@ exports.getHistory = async (req, res) => {
 				data.resArr.push(obj);
 				
 			});
-			console.log('er', resArr);
+			// console.log('er', resArr);
 			res.status(200).json(data);
 		} else {
 			return res.status(200).json({
