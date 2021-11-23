@@ -142,11 +142,11 @@ exports.buyTicket = async (req, res) => {
 };
 
 exports.getHistory = async (req, res) => {
-	const { user_id } = req.body;
+	const { _id } = req.body;
 	let data = {}
 	try {
 		let tickets = await Ticket.find({
-			user_id: user_id,
+			user_id: _id,
 			paid: true,
 		}).lean();
 
