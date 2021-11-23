@@ -176,7 +176,7 @@ exports.getHistory = async (req, res) => {
 					}
 				});
 
-				let obj = { ...event, usersTicket: usersTicket };
+				let obj = { ...event, pricings: usersTicket };
 				// console.log(obj);
 				data.resArr.push(obj);
 				res.status(200).json(data);
