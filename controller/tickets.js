@@ -142,15 +142,18 @@ exports.buyTicket = async (req, res) => {
 };
 
 exports.getHistory = async (req, res) => {
-	const { user_id } = req.body;
-	let resArr = [];
+	const { _id } = req.body;
+	let data = {}
 	try {
 		let tickets = await Ticket.find({
-			user_id: user_id,
+			user_id: _id,
 			paid: true,
 		}).lean();
 
 		if (tickets.length > 0) {
+			
+			data.success = true;
+			data.resArr = [];
 			tickets.forEach(async (element) => {
 				let event = await eventModel
 					.findOne({ _id: element.event_id })
@@ -168,20 +171,18 @@ exports.getHistory = async (req, res) => {
 					for (let i = 0; i < count; i++) {
 						let obj2 = {};
 						obj2.priceName = el.priceName;
-						obj2.id = nanoid();
+						obj2._id = nanoid();
 						usersTicket.push(obj2);
 					}
 				});
 
-				let obj = { ...event, usersTicket: usersTicket };
+				let obj = { ...event, pricings: usersTicket };
 				// console.log(obj);
-				resArr.push(obj);
-				console.log('er', resArr);
+				data.resArr.push(obj);
+				res.status(200).json(data);
 			});
-			res.status(200).json({
-				success: true,
-				data: resArr,
-			});
+			// console.log('er', resArr);
+			
 		} else {
 			return res.status(200).json({
 				success: false,
