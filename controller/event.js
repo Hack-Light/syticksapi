@@ -344,15 +344,15 @@ exports.getCategory = async (req, res, next) => {
 			success: true,
 			events,
 		};
-		res.status(200).json('events', data);
+		return res.status(200).json(data);
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
 			success: false,
-			message: err.message,
+			message: error.message,
 			error: {
 				statusCode: 500,
-				description: err.message,
+				description: error.message,
 			},
 		});
 	}
