@@ -292,28 +292,29 @@ exports.deleteComments = async (req, res, next) => {
 };
 
 exports.getCategory = async (req, res, next) => {
-	let { category } = req.body;
+	// let { category } = req.body;
+	let { category } = req.params;
 
-	let which;
+	// let which;
 
-	if ((category = '0')) {
-		which = 'parties';
-	}
-	if ((category = '1')) {
-		which = 'music';
-	}
-	if ((category = '2')) {
-		which = 'tours';
-	}
-	if ((category = '3')) {
-		which = 'movies';
-	}
+	// if ((category = '0')) {
+	// 	which = 'parties';
+	// }
+	// if ((category = '1')) {
+	// 	which = 'music';
+	// }
+	// if ((category = '2')) {
+	// 	which = 'tours';
+	// }
+	// if ((category = '3')) {
+	// 	which = 'movies';
+	// }
 
 	try {
 		let events = await eventModel
 			.find({
 				is_deleted: false,
-				category: which,
+				category: category,
 			})
 			.select(
 				'-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id',
