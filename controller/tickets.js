@@ -142,7 +142,7 @@ exports.buyTicket = async (req, res) => {
 };
 
 exports.getHistory = async (req, res) => {
-	const { _id } = req.body;
+	const { _id } = req.params;
 	let data = {};
 	try {
 		let tickets = await Ticket.find({
