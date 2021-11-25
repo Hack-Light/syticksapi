@@ -297,16 +297,16 @@ exports.getCategory = async (req, res, next) => {
 	let which;
 
 	if ((category = '0')) {
-		which = parties;
+		which = 'parties';
 	}
 	if ((category = '1')) {
-		which = music;
+		which = 'music';
 	}
 	if ((category = '2')) {
-		which = tours;
+		which = 'tours';
 	}
-	if ((category = '0')) {
-		which = movies;
+	if ((category = '3')) {
+		which = 'movies';
 	}
 
 	try {
