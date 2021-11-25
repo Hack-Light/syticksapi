@@ -311,7 +311,7 @@ exports.getCategory = async (req, res, next) => {
 
 	try {
 		let events = await eventModel
-			.findOne({
+			.find({
 				is_deleted: false,
 				category: which,
 			})
@@ -338,7 +338,8 @@ exports.getCategory = async (req, res, next) => {
 						},
 					},
 				],
-			});
+			})
+			.exec();
 		console.log(events);
 
 		return res.status(200).json({
