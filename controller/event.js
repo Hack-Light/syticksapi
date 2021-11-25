@@ -311,7 +311,7 @@ exports.getCategory = async (req, res, next) => {
 
 	try {
 		let events = await eventModel
-			.find({
+			.findOne({
 				is_deleted: false,
 				category: which,
 			})
