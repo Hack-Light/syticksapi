@@ -342,7 +342,7 @@ exports.getCategory = async (req, res, next) => {
 
 		return res.status(200).json({
 			success: true,
-			events,
+			events: events,
 		});
 	} catch (error) {
 		console.log(error);
