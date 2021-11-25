@@ -23,7 +23,7 @@ router.post('/event/reply/create', createReply);
 router.post('/event/reply', getReplyComment);
 
 router.post('/event/comment/delete', deleteComments);
-router.post('/event/:category', getCategory);
+router.get('/event/:category', getCategory);
 
 router.post('/event/single', getEvent);
 
