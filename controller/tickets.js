@@ -180,8 +180,9 @@ exports.getHistory = async (req, res) => {
 				let obj = { ...event, pricings: usersTicket };
 				// console.log(obj);
 				data.resArr.push(obj);
-				res.status(200).json(data);
 			});
+
+			res.status(200).json(data);
 			// console.log('er', resArr);
 		} else {
 			return res.status(200).json({
