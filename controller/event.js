@@ -292,7 +292,7 @@ exports.deleteComments = async (req, res, next) => {
 };
 
 exports.getCategory = async (req, res, next) => {
-	let { category } = res.body;
+	let { category } = req.body;
 
 	let which;
 
@@ -358,48 +358,48 @@ exports.getCategory = async (req, res, next) => {
 	}
 };
 
-exports.getEvent = async (req,res, next) => {
-  let {_id} = req.body
-  try {
-    let event = await eventModel
-      .findOne({_id:_id, is_deleted: false })
-      .select(
-        "-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id"
-      )
-      .populate("organiser", "name", Organiser)
-      .populate({
-        path: "comments",
-        model: Comment,
-        populate: [
-          {
-            path: "user",
-            model: User,
-            select: "username"
-          },
-          {
-            path: "replies",
-            model: Reply,
-            populate: {
-              path: "user",
-              model: User,
-              select: "username"
-            }
-          }
-        ]
-      });
+exports.getEvent = async (req, res, next) => {
+	let { _id } = req.body;
+	try {
+		let event = await eventModel
+			.findOne({ _id: _id, is_deleted: false })
+			.select(
+				'-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id',
+			)
+			.populate('organiser', 'name', Organiser)
+			.populate({
+				path: 'comments',
+				model: Comment,
+				populate: [
+					{
+						path: 'user',
+						model: User,
+						select: 'username',
+					},
+					{
+						path: 'replies',
+						model: Reply,
+						populate: {
+							path: 'user',
+							model: User,
+							select: 'username',
+						},
+					},
+				],
+			});
 
-    res.status(200).json({
-      success: true,
-      event
-    });
-  } catch (err) {
-    return res.status(500).json({
-      success: false,
-      message: err.message,
-      error: {
-        statusCode: 500,
-        description: err.message
-      }
-    });
-  }
-}
+		res.status(200).json({
+			success: true,
+			event,
+		});
+	} catch (err) {
+		return res.status(500).json({
+			success: false,
+			message: err.message,
+			error: {
+				statusCode: 500,
+				description: err.message,
+			},
+		});
+	}
+};
