@@ -308,7 +308,6 @@ exports.getCategory = async (req, res, next) => {
 	if ((category = '3')) {
 		which = 'movies';
 	}
-	console.log(which);
 
 	try {
 		let events = await eventModel
@@ -341,13 +340,10 @@ exports.getCategory = async (req, res, next) => {
 				],
 			});
 
-		console.log('events', events);
-
-		let data = {
+		return res.status(200).json({
 			success: true,
 			events,
-		};
-		return res.status(200).json(data);
+		});
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
