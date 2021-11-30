@@ -194,8 +194,8 @@ exports.createComments = async (req, res, next) => {
 
 		return res.status(201).json({
 			success: true,
-			message: 'User registration successfull',
-			data: event.comments,
+			message: 'comment successfully created',
+			comments: event.comments,
 		});
 	} catch (err) {
 		return res.status(500).json({
@@ -414,7 +414,7 @@ exports.searchUser = async (req, res, next) => {
 			{ username: { $regex: username, $options: 'i' } },
 			{},
 			{ sort: { username: 1 } },
-		);
+		).select('_id username email');
 
 		let data = {
 			success: true,
@@ -432,5 +432,51 @@ exports.searchUser = async (req, res, next) => {
 				description: err.message,
 			},
 		});
+	}
+};
+
+exports.searchEvents = async (req, res, next) => {
+	const { name } = req.body;
+
+	try {
+		let events = await eventModel
+			.find(
+				{ name: { $regex: name, $options: 'i' } },
+				{},
+				{ sort: { date: 1 } },
+			)
+			.select(
+				'-sponsors -tickets -is_deleted -pricings._id -images.public_id -images._id',
+			)
+			.populate('organiser', 'name', Organiser)
+			.populate({
+				path: 'comments',
+				model: Comment,
+				populate: [
+					{
+						path: 'user',
+						model: User,
+						select: 'username',
+					},
+					{
+						path: 'replies',
+						model: Reply,
+						populate: {
+							path: 'user',
+							model: User,
+							select: 'username',
+						},
+					},
+				],
+			});
+
+		let data = {
+			events,
+			success: true,
+		};
+
+		res.status(200).json(data);
+	} catch (error) {
+		console.log(error);
 	}
 };

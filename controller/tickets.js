@@ -152,7 +152,7 @@ exports.getHistory = async (req, res) => {
 
 		if (tickets.length > 0) {
 			data.success = true;
-			data.resArr = [];
+			let resArr = [];
 			tickets.forEach(async (element) => {
 				let event = await eventModel
 					.findOne({ _id: element.event_id })
@@ -179,8 +179,11 @@ exports.getHistory = async (req, res) => {
 
 				let obj = { ...event, pricings: usersTicket };
 				// console.log(obj);
-				data.resArr.push(obj);
-				res.status(200).json(data);
+				resArr.push(obj);
+			});
+			res.status(200).json({
+				success: true,
+				data: resArr,
 			});
 
 			// console.log('er', resArr);

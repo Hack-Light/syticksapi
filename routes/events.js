@@ -9,6 +9,7 @@ const express = require('express'),
 		getEvent,
 		getCategory,
 		searchUser,
+		searchEvents,
 	} = require('../controller/event');
 
 let router = express.Router();
@@ -28,5 +29,6 @@ router.get('/event/:category', getCategory);
 
 router.post('/event/single', getEvent);
 router.post('/user/search', searchUser);
+router.post('/event/search', searchEvents);
 
 module.exports = router;
