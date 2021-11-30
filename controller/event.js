@@ -405,3 +405,32 @@ exports.getEvent = async (req, res, next) => {
 		});
 	}
 };
+
+exports.searchUser = async (req, res, next) => {
+	const { username } = req.body;
+
+	try {
+		let users = await Events.find(
+			{ username: { $regex: username, $options: 'i' } },
+			{},
+			{ sort: { username: 1 } },
+		);
+
+		let data = {
+			success: true,
+			data: users,
+		};
+
+		res.status(200).json(data);
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			success: false,
+			message: err.message,
+			error: {
+				statusCode: 500,
+				description: err.message,
+			},
+		});
+	}
+};

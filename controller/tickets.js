@@ -142,7 +142,7 @@ exports.buyTicket = async (req, res) => {
 };
 
 exports.getHistory = async (req, res) => {
-	const { _id } = req.params;
+	const { _id } = req.body;
 	let data = {};
 	try {
 		let tickets = await Ticket.find({
@@ -180,13 +180,14 @@ exports.getHistory = async (req, res) => {
 				let obj = { ...event, pricings: usersTicket };
 				// console.log(obj);
 				data.resArr.push(obj);
+				res.status(200).json(data);
 			});
 
-			res.status(200).json(data);
 			// console.log('er', resArr);
 		} else {
 			return res.status(200).json({
 				success: false,
+				message: 'You have not purchased any tickets yet',
 			});
 		}
 	} catch (err) {

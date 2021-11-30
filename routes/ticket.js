@@ -17,6 +17,6 @@ router.post('/ticket/enquire', checkTicket);
 
 router.post('/ticket/create', buyTicket);
 
-router.get('/ticket/history/:_id', getHistory);
+router.post('/ticket/history/', getHistory);
 
 module.exports = router;
