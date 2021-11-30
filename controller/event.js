@@ -189,12 +189,13 @@ exports.createComments = async (req, res, next) => {
 						},
 					},
 				],
-			});
+			})
+			.lean();
 
 		return res.status(201).json({
 			success: true,
 			message: 'User registration successfull',
-			comments: event.comments,
+			data: event.comments,
 		});
 	} catch (err) {
 		return res.status(500).json({
