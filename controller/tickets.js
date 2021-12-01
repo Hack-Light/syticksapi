@@ -153,7 +153,7 @@ exports.getHistory = async (req, res) => {
 		});
 
 		if (tickets.length > 0) {
-			data.success = true;
+			// data.success = true;
 
 			tickets.forEach(async (element) => {
 				let event = await eventModel
