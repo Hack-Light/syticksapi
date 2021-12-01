@@ -168,15 +168,26 @@ exports.getHistory = async (req, res) => {
 				console.log(event);
 				let usersTicket = [];
 
-				tickets[index].details.forEach(async (el) => {
-					let count = el.ticketCount;
+				let qArr = tickets[index].details;
+				// .forEach(async (el) => {
+				// 	let count = el.ticketCount;
+				// 	for (let i = 0; i < count; i++) {
+				// 		let obj2 = {};
+				// 		obj2.priceName = el.priceName;
+				// 		obj2._id = nanoid();
+				// 		usersTicket.push(obj2);
+				// 	}
+				// });
+
+				for (let j = 0; j < qArr.length; j++) {
+					let count = qArr[j].ticketCount;
 					for (let i = 0; i < count; i++) {
 						let obj2 = {};
-						obj2.priceName = el.priceName;
+						obj2.priceName = qArr[j].priceName;
 						obj2._id = nanoid();
 						usersTicket.push(obj2);
 					}
-				});
+				}
 
 				let obj = { ...event, pricings: usersTicket };
 				// console.log(obj);
