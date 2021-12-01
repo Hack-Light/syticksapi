@@ -185,7 +185,7 @@ exports.getHistory = async (req, res) => {
 				console.log('er', resArr);
 			});
 			console.log('er2', resArr);
-			res.status(200).json({
+			res.status(201).json({
 				success: true,
 				data: resArr,
 			});
