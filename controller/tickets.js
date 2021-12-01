@@ -189,7 +189,7 @@ exports.getHistory = async (req, res) => {
 					}
 				}
 
-				let obj = { ...event, tickets: usersTicket };
+				let obj = { ...event, pricings: usersTicket };
 				// console.log(obj);
 				resArr.push(obj);
 				console.log('er', resArr);
