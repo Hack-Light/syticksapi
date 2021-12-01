@@ -143,7 +143,8 @@ exports.buyTicket = async (req, res) => {
 
 exports.getHistory = async (req, res) => {
 	const { _id } = req.body;
-	let data = {};
+	// let data = {};
+	let resArr = [];
 	try {
 		let tickets = await Ticket.find({
 			user_id: _id,
@@ -152,7 +153,7 @@ exports.getHistory = async (req, res) => {
 
 		if (tickets.length > 0) {
 			data.success = true;
-			let resArr = [];
+
 			tickets.forEach(async (element) => {
 				let event = await eventModel
 					.findOne({ _id: element.event_id })
