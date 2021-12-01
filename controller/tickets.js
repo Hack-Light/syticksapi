@@ -154,10 +154,9 @@ exports.getHistory = async (req, res) => {
 
 		if (tickets.length > 0) {
 			// data.success = true;
-
-			tickets.forEach(async (element) => {
+			for (let index = 0; index < tickets.length; index++) {
 				let event = await eventModel
-					.findOne({ _id: element.event_id })
+					.findOne({ _id: tickets[index].event_id })
 					.select('-comments -pricings -sponsors -createdAt -updatedAt')
 					.populate({
 						path: 'organiser',
@@ -169,7 +168,7 @@ exports.getHistory = async (req, res) => {
 				console.log(event);
 				let usersTicket = [];
 
-				element.details.forEach(async (el) => {
+				tickets[index].details.forEach(async (el) => {
 					let count = el.ticketCount;
 					for (let i = 0; i < count; i++) {
 						let obj2 = {};
@@ -183,7 +182,11 @@ exports.getHistory = async (req, res) => {
 				// console.log(obj);
 				resArr.push(obj);
 				console.log('er', resArr);
-			});
+			}
+
+			// tickets.forEach(async (element) => {
+
+			// });
 			console.log('er2', resArr);
 			res.status(201).json({
 				success: true,
