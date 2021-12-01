@@ -150,7 +150,7 @@ exports.getHistory = async (req, res) => {
 		let tickets = await Ticket.find({
 			user_id: _id,
 			paid: true,
-		}).lean();
+		});
 
 		if (tickets.length > 0) {
 			data.success = true;
