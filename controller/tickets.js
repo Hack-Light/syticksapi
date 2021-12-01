@@ -143,6 +143,7 @@ exports.buyTicket = async (req, res) => {
 
 exports.getHistory = async (req, res) => {
 	const { _id } = req.body;
+	console.log(_id);
 	// let data = {};
 	let resArr = [];
 	try {
@@ -181,13 +182,13 @@ exports.getHistory = async (req, res) => {
 				let obj = { ...event, pricings: usersTicket };
 				// console.log(obj);
 				resArr.push(obj);
+				console.log('er', resArr);
 			});
+			console.log('er2', resArr);
 			res.status(200).json({
 				success: true,
 				data: resArr,
 			});
-
-			// console.log('er', resArr);
 		} else {
 			return res.status(200).json({
 				success: false,
