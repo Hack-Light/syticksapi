@@ -9,7 +9,11 @@ const shareSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'user',
 	},
-	ticket_slug: {
+	ticket: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'ticket',
+	},
+	ticket_type: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'ticket',
 	},
