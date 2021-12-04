@@ -9,6 +9,8 @@ const ticketSchema = new mongoose.Schema(
 		},
 		paid: { type: Boolean.apply, default: false },
 
+		slug: { type: String, default: () => nanoid(), unique: true },
+
 		event_id: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,

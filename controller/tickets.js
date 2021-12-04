@@ -1,7 +1,8 @@
 const eventModel = require('../models/event'),
 	Ticket = require('../models/tickets'),
 	Transaction = require('../models/transaction'),
-	Organiser = require('../models/organisers');
+	Organiser = require('../models/organisers'),
+	Share = require('../models/share');
 // const organisers = require('../models/organisers');
 const { customAlphabet } = require('nanoid');
 const nanoid = customAlphabet(
@@ -209,6 +210,64 @@ exports.getHistory = async (req, res) => {
 				message: 'You have not purchased any tickets yet',
 			});
 		}
+	} catch (err) {
+		console.log(err);
+
+		return res.status(400).json({
+			success: false,
+		});
+	}
+};
+
+exports.handleShare = async (req, res) => {
+	const {
+		event_id,
+		sender_id,
+		reciever_id,
+		ticketName,
+		ticket_id,
+		priceAmount,
+		ticketAmount,
+	} = req.body;
+
+	try {
+		console.log(_id);
+
+		let senderticket = await Ticket.findOne({
+			user_id: _id,
+			event_id: event_id,
+			paid: true,
+		});
+
+		senderticket.count = senderticket.count - 1;
+		let ticket = new Ticket({
+			user_id: reciever_id,
+			slug: ticket_id,
+			event_id: event_id,
+			count: 1,
+			paid: true,
+			details: [
+				{
+					priceName: ticketName,
+					ticketCount: 1,
+					ticketAmount: ticketAmount,
+					priceAmount: priceAmount,
+				},
+			],
+		});
+
+		ticket = await ticket.save();
+		await senderticket.save();
+
+		let share = new Share({
+			sender: sender_id,
+			receiver: reciever_id,
+			ticket: ticket._id,
+			event_id: event_id,
+			ticket_type: ticketName,
+		});
+
+		await share.save();
 	} catch (err) {
 		console.log(err);
 
