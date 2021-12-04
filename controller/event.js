@@ -410,7 +410,7 @@ exports.searchUser = async (req, res, next) => {
 	const { username } = req.body;
 
 	try {
-		let users = await Events.find(
+		let users = await User.find(
 			{ username: { $regex: username, $options: 'i' } },
 			{},
 			{ sort: { username: 1 } },

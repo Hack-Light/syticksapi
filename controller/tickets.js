@@ -45,7 +45,7 @@ exports.checkTicket = async (req, res) => {
 			});
 		} else {
 			let data = ticket.details.reduce((acc, cur) => {
-				return [...acc, { ...cur, ticketCount: 0 }];
+				return [...acc, { ...cur, ticketCount: 0, ticketAmount: 0 }];
 			}, []);
 
 			return res.status(200).json({
