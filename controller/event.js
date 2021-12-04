@@ -414,11 +414,11 @@ exports.searchUser = async (req, res, next) => {
 			{ username: { $regex: username, $options: 'i' } },
 			{},
 			{ sort: { username: 1 } },
-		).select('_id username email');
+		);
 
 		let data = {
 			success: true,
-			data: users,
+			users: users,
 		};
 
 		res.status(200).json(data);
