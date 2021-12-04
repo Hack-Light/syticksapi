@@ -1,4 +1,9 @@
 const mongoose = require('mongoose');
+const { customAlphabet } = require('nanoid');
+const nanoid = customAlphabet(
+	'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+	8,
+);
 
 const ticketSchema = new mongoose.Schema(
 	{
