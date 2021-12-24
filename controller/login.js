@@ -47,11 +47,10 @@ exports.loginUser = async (req, res, next) => {
 				success: true,
 				message: "You're logged in successfully.",
 				id: user._id,
-				phone: user.phone,
 				email: user.email,
 				username: user.username,
 				name: user.name,
-				api_token: user.api_token,
+				access_token: user.api_token,
 			});
 		}
 	} catch (err) {

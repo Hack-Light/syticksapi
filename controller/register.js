@@ -43,7 +43,7 @@ exports.registerUser = async (req, res, next) => {
 		user = new User({
 			phone: phone,
 			password: hashpassword,
-			api_token: api_token,
+			access_token: api_token,
 			role: user_role,
 			email,
 			username,
@@ -58,7 +58,6 @@ exports.registerUser = async (req, res, next) => {
 			success: true,
 			message: 'User registration successfully',
 			id: user._id,
-			phone: user.phone,
 			email: user.email,
 			username: user.username,
 			name: user.name,
